@@ -1,1 +1,1 @@
-# Inadi_map
+# India_map
