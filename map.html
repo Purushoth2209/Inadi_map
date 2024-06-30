@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ambulance Distribution Map</title>
+  <!-- Include Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      width: 100%;
+      height: 100vh; /* Full viewport height */
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Include Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Initialize the map and set its view to India's coordinates
+    var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Ambulance data
+    var ambulanceData = {
+      "Maharashtra": 120,
+      "Gujarat": 80,
+      "Tamil Nadu": 95,
+      "Karnataka": 70,
+      "Rajasthan": 60,
+      "Uttar Pradesh": 110,
+      "West Bengal": 75,
+      "Bihar": 50,
+      "Andhra Pradesh": 85,
+      "Madhya Pradesh": 65
+      // Add more states as needed
+    };
+
+    // Coordinates for each state
+    var stateCoordinates = {
+      "Maharashtra": [19.7515, 75.7139],
+      "Gujarat": [22.2587, 71.1924],
+      "Tamil Nadu": [11.1271, 78.6569],
+      "Karnataka": [15.3173, 75.7139],
+      "Rajasthan": [27.0238, 74.2179],
+      "Uttar Pradesh": [26.8467, 80.9462],
+      "West Bengal": [22.9868, 87.8550],
+      "Bihar": [25.0961, 85.3131],
+      "Andhra Pradesh": [15.9129, 79.7400],
+      "Madhya Pradesh": [22.9734, 78.6569]
+      // Add coordinates for more states as needed
+    };
+
+    // Function to add markers to the map
+    function addMarkers(data) {
+      for (var state in data) {
+        var coordinates = stateCoordinates[state];
+        if (coordinates) {
+          L.marker(coordinates).addTo(map)
+            .bindPopup(state + ": " + data[state] + " ambulances");
+        }
+      }
+    }
+
+    // Add markers to the map
+    addMarkers(ambulanceData);
+  </script>
+</body>
+</html>
